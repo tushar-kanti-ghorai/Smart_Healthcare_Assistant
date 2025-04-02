@@ -6,6 +6,8 @@ import doctorModel from "../models/doctorModel.js";
 import { v2 as cloudinary } from 'cloudinary'
 import appointmentModel from "../models/appointmentModel.js";
 import razorpay from "razorpay";
+import nodemailer from 'nodemailer';
+
 
 
 // API to register user
@@ -77,6 +79,71 @@ const loginUser = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
+
+
+// Forgot Password Controller
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await userModel.findOne({ email });
+
+        if (!user) {
+            return res.json({ success: false, message: 'User not found' });
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // Setup Nodemailer
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Password Reset',
+            text: `Click the link to reset your password: ${process.env.CLIENT_URL}/reset-password/${token}`,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.json({ success: true, message: 'Password reset link sent to your email' });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
+
+// Reset Password Controller
+const resetPassword = async (req, res) => {
+    try {
+        const {token}=req.params
+        const { newPassword } = req.body;
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await userModel.findById(decoded.id);
+
+        if (!user) {
+            return res.json({ success: false, message: 'Invalid or expired token' });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        user.password = hashedPassword;
+        await user.save();
+
+        res.json({ success: true, message: 'Password reset successful' });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: 'Invalid or expired token' });
+    }
+};
+
 
 // API to get user profile data
 const getProfile = async (req, res) => {
@@ -300,4 +367,6 @@ export {
     listAppointment,
     cancelAppointment,
     paymentRazorpay,
-    verifyRazorpay}
+    verifyRazorpay,
+    forgotPassword,
+resetPassword}

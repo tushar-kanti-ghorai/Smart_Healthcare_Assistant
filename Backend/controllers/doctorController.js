@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
+import { v2 as cloudinary } from 'cloudinary'
 
 // API for doctor Login 
 const loginDoctor = async (req, res) => {
@@ -164,36 +165,53 @@ const doctorDashboard = async (req, res) => {
 }
 
 
-// API to get doctor profile for  Doctor Panel
+// API to get doctor profile for Doctor Panel
 const doctorProfile = async (req, res) => {
     try {
-
-        const { docId } = req.body
-        const profileData = await doctorModel.findById(docId).select('-password')
-
-        res.json({ success: true, profileData })
-
+        const { docId } = req.body;
+        const profileData = await doctorModel.findById(docId).select('-password');
+        res.json({ success: true, profileData });
     } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
 }
 
-// API to update doctor profile data from  Doctor Panel
+// API to update doctor profile data from Doctor Panel
 const updateDoctorProfile = async (req, res) => {
     try {
+        const { docId, fees, address, available, email } = req.body;
+        const imageFile = req.file;
 
-        const { docId, fees, address, available } = req.body
+        // Check for email uniqueness if updating
+        if (email) {
+            const existingDoctor = await doctorModel.findOne({ email });
+            if (existingDoctor && existingDoctor._id.toString() !== docId) {
+                return res.json({ success: false, message: 'Email already exists' });
+            }
+        }
 
-        await doctorModel.findByIdAndUpdate(docId, { fees, address, available })
+        // Update profile data
+        const updateData = { fees, address, available, email };
 
-        res.json({ success: true, message: 'Profile Updated' })
+        // Check if an image file is provided
+        if (imageFile) {
+            // Upload image to Cloudinary
+            const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
+            const imageURL = imageUpload.secure_url;
+            updateData.image = imageURL;
+        }
 
+        await doctorModel.findByIdAndUpdate(docId, updateData);
+
+        res.json({ success: true, message: 'Profile Updated' });
     } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
 }
+
+
 
 
 
