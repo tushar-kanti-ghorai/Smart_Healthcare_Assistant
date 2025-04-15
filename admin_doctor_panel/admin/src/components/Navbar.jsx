@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { assets } from '../assets/assets'
 import { DoctorContext } from '../context/DoctorContext'
 import { AdminContext } from '../context/AdminContext'
 import { useNavigate } from 'react-router-dom'
@@ -32,7 +31,7 @@ const Navbar = () => {
       </div>
       <p className="text-sm text-black font-bold">Dashboard Panel</p>
     </div>
-    <button onClick={() => logout()} className="bg-primary text-white text-sm px-10 py-2 rounded-full">
+    <button onClick={() => logout()} className="bg-primary text-white text-sm px-10 py-2 rounded-full cursor-pointer">
       Logout
     </button>
   </div>

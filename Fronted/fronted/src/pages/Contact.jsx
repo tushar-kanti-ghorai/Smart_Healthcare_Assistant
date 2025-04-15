@@ -37,16 +37,6 @@ const Contact = () => {
             </p>
           </div>
 
-          {/* Careers Section */}
-          <div>
-            <p className="font-semibold text-lg text-gray-600">JOIN OUR TEAM</p>
-            <p className="text-gray-500">
-              Be part of our mission to revolutionize healthcare technology. Explore exciting career opportunities with us.
-            </p>
-            <button className="border border-black px-8 py-3 text-sm hover:bg-black hover:text-white transition-all duration-500">
-              Explore Jobs
-            </button>
-          </div>
 
         </div>
       </div>

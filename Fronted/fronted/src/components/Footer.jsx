@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <div className='md:mx-10'>
       <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
@@ -11,7 +14,7 @@ const Footer = () => {
             Smart Healthcare Assistant
           </p>
           <p className='w-full md:w-2/3 text-gray-600 leading-6'>
-           Our platform helps patients connect with doctors, check symptoms, and manage appointments seamlessly.
+            Our platform helps patients connect with doctors and manage appointments seamlessly.
           </p>
         </div>
 
@@ -19,10 +22,27 @@ const Footer = () => {
         <div>
           <p className='text-xl font-medium mb-5'>COMPANY</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
-            <li className='hover:text-primary cursor-pointer'>Home</li>
-            <li className='hover:text-primary cursor-pointer'>About Us</li>
-            <li className='hover:text-primary cursor-pointer'>Contact Us</li>
-            <li className='hover:text-primary cursor-pointer'>Privacy Policy</li>
+            <li 
+              onClick={() => navigate('/')} 
+              className='hover:text-primary cursor-pointer'
+            >
+              Home
+            </li>
+            <li 
+              onClick={() => navigate('/about')} 
+              className='hover:text-primary cursor-pointer'
+            >
+              About Us
+            </li>
+            <li 
+              onClick={() => navigate('/contact')} 
+              className='hover:text-primary cursor-pointer'
+            >
+              Contact Us
+            </li>
+            <li className='hover:text-primary cursor-pointer'>
+              Privacy Policy
+            </li>
           </ul>
         </div>
 

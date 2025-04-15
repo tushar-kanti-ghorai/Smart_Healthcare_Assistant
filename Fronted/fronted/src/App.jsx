@@ -10,7 +10,6 @@ import MyAppointments from './pages/MyAppointments'
 import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import SymptomChecker from './pages/SymptomChecker'
 import { ToastContainer } from 'react-toastify'
 import ForgotPassword from './pages/ForgetPassword'
 import ResetPassword from './pages/ResetPassword'
@@ -30,7 +29,6 @@ const App = () => {
         <Route path='/my-profile' element={<MyProfile />} />
         <Route path='/my-appointments' element={<MyAppointments />} />
         <Route path='/appointment/:docId' element={<Appointment />} />
-        <Route path='/symptom-checker' element={<SymptomChecker />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password/:token' element={<ResetPassword />} />     
          </Routes>
