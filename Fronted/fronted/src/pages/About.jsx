@@ -15,14 +15,14 @@ const About = () => {
         <img className="w-full md:max-w-[360px]" src={assets.about_image} alt="About Smart Healthcare Assistant" />
         <div className="flex flex-col justify-center gap-6 md:w-2/4 text-sm text-gray-600">
           <p>
-            Welcome to <b>Smart Healthcare Assistant</b>, your trusted partner in managing your healthcare needs conveniently and efficiently. We understand the challenges individuals face when it comes to scheduling doctor appointments and maintaining health records.
+            Welcome to <b>Smart Healthcare Assistant</b>, your trusted partner in managing your healthcare needs conveniently and efficiently. We understand the challenges individuals face when it comes to scheduling doctor appointments, tracking symptoms, and maintaining health records.
           </p>
           <p>
-            <b>Smart Healthcare Assistant</b> is committed to excellence in healthcare technology. We continuously strive to enhance our platform by integrating the latest advancements to improve user experience and provide superior service. Whether you're booking your first appointment or managing ongoing care, we are here to support you every step of the way.
+            At <b>Smart Healthcare Assistant</b>, we are committed to transforming healthcare through intelligent solutions. Our platform combines modern web technologies with AI-powered tools—including a smart medical chatbot (AI-Doctor) and image analysis—to provide quick, reliable health insights and streamline patient care.
           </p>
           <b className="text-gray-800">Our Vision</b>
           <p>
-            Our vision is to create a seamless healthcare experience for every user. We aim to bridge the gap between patients and healthcare providers, making it easier for you to access the care you need when you need it.
+            Our vision is to create a seamless healthcare experience for every user. We aim to bridge the gap between patients and healthcare providers, making access to care faster, more accurate, and more personalized through innovation and technology.
           </p>
         </div>
       </div>
@@ -35,15 +35,15 @@ const About = () => {
       <div className="flex flex-col md:flex-row mb-20">
         <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer">
           <b>EFFICIENCY:</b>
-          <p>Seamless appointment scheduling that fits into your busy lifestyle.</p>
+          <p>Seamless appointment scheduling, real-time health support, and integrated tools—all in one platform.</p>
         </div>
         <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer">
-          <b>CONVENIENCE:</b>
-          <p>Access to a network of trusted healthcare professionals in your area.</p>
+          <b>INNOVATION:</b>
+          <p>AI-powered chatbot and image analysis for quick symptom understanding and medical insights.</p>
         </div>
         <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer">
           <b>PERSONALIZATION:</b>
-          <p>Tailored recommendations and reminders to help you stay on top of your health.</p>
+          <p>Tailored recommendations, alerts, and reminders to help you stay on top of your health journey.</p>
         </div>
       </div>
 

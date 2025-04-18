@@ -14,13 +14,15 @@ const Footer = () => {
             Smart Healthcare Assistant
           </p>
           <p className='w-full md:w-2/3 text-gray-600 leading-6'>
-            Our platform helps patients connect with doctors and manage appointments seamlessly.
+          Our platform is dedicated to enhancing patient care by providing seamless communication with healthcare professionals and simplifying appointment management. 
+           It also features an advanced AI-Doctor (Medical Chatbot) and intelligent image analysis to support quicker, more accurate health assessments.
           </p>
+
         </div>
 
         {/* Company Links */}
         <div>
-          <p className='text-xl font-medium mb-5'>COMPANY</p>
+          <p className='text-xl font-medium mb-5'>Quick Links</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
             <li 
               onClick={() => navigate('/')} 
@@ -48,7 +50,7 @@ const Footer = () => {
 
         {/* Contact Information */}
         <div>
-          <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
+          <p className='text-xl font-medium mb-5'>Get In Touch</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
             <li>📞 +91 98765 43210</li>
             <li>📧 support@smarthealth.com</li>
@@ -62,7 +64,7 @@ const Footer = () => {
       <div>
         <hr />
         <p className='py-5 text-sm text-center text-gray-600'>
-          © 2025 Smart Healthcare Assistant - All Rights Reserved.
+          © 2025 Smart Healthcare Assistant. All rights reserved.
         </p>
       </div>
 

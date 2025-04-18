@@ -192,35 +192,31 @@ const updateProfile = async (req, res) => {
 }
 
 // API to book appointment 
+
 const bookAppointment = async (req, res) => {
-
     try {
-
-        const { userId, docId, slotDate, slotTime } = req.body
-        const docData = await doctorModel.findById(docId).select("-password")
+        const { userId, docId, slotDate, slotTime } = req.body;
+        const docData = await doctorModel.findById(docId).select("-password");
 
         if (!docData.available) {
-            return res.json({ success: false, message: 'Doctor Not Available' })
+            return res.json({ success: false, message: 'Doctor Not Available' });
         }
 
-        let slots_booked = docData.slots_booked
+        let slots_booked = docData.slots_booked;
 
-        // checking for slot availablity 
         if (slots_booked[slotDate]) {
             if (slots_booked[slotDate].includes(slotTime)) {
-                return res.json({ success: false, message: 'Slot Not Available' })
-            }
-            else {
-                slots_booked[slotDate].push(slotTime)
+                return res.json({ success: false, message: 'Slot Not Available' });
+            } else {
+                slots_booked[slotDate].push(slotTime);
             }
         } else {
-            slots_booked[slotDate] = []
-            slots_booked[slotDate].push(slotTime)
+            slots_booked[slotDate] = [slotTime];
         }
 
-        const userData = await userModel.findById(userId).select("-password")
+        const userData = await userModel.findById(userId).select("-password");
 
-        delete docData.slots_booked
+        delete docData.slots_booked;
 
         const appointmentData = {
             userId,
@@ -233,20 +229,37 @@ const bookAppointment = async (req, res) => {
             date: Date.now()
         }
 
-        const newAppointment = new appointmentModel(appointmentData)
-        await newAppointment.save()
+        const newAppointment = new appointmentModel(appointmentData);
+        await newAppointment.save();
 
-        // save new slots data in docData
-        await doctorModel.findByIdAndUpdate(docId, { slots_booked })
+        await doctorModel.findByIdAndUpdate(docId, { slots_booked });
 
-        res.json({ success: true, message: 'Appointment Booked' })
+        // 📧 Email Notification to User
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: userData.email,
+            subject: 'Appointment Confirmation',
+            text: `Dear ${userData.name},\n\nYour appointment with ${docData.name} on ${slotDate} at ${slotTime} has been confirmed.\n\nThank you for using Smart Healthcare Assistant.`,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.json({ success: true, message: 'Appointment Booked & Email Sent' });
 
     } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
+};
 
-}
 
 // API to get user appointments for frontend my-appointments page
 const listAppointment = async (req, res) => {
@@ -268,41 +281,57 @@ const listAppointment = async (req, res) => {
 // API to cancel appointment
 const cancelAppointment = async (req, res) => {
     try {
+        const { userId, appointmentId } = req.body;
+        const appointmentData = await appointmentModel.findById(appointmentId);
 
-        const { userId, appointmentId } = req.body
-        const appointmentData = await appointmentModel.findById(appointmentId)
-
-        // verify appointment user 
-        if (appointmentData.userId !== userId) {
-            return res.json({ success: false, message: 'Unauthorized action' })
+        if (appointmentData.userId != userId) {
+            return res.json({ success: false, message: 'Unauthorized action' });
         }
 
-        await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true })
+        await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true });
 
-        // releasing doctor slot 
-        const { docId, slotDate, slotTime } = appointmentData
+        const { docId, slotDate, slotTime } = appointmentData;
+        const doctorData = await doctorModel.findById(docId);
+        let slots_booked = doctorData.slots_booked;
 
-        const doctorData = await doctorModel.findById(docId)
+        slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime);
+        await doctorModel.findByIdAndUpdate(docId, { slots_booked });
 
-        let slots_booked = doctorData.slots_booked
+        const userData = await userModel.findById(userId).select("-password");
 
-        slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime)
+        // 📧 Email Notification on Cancellation
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
 
-        await doctorModel.findByIdAndUpdate(docId, { slots_booked })
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: userData.email,
+            subject: 'Appointment Cancelled',
+            text: `Dear ${userData.name},\n\nYour appointment with ${doctorData.name} on ${slotDate} at ${slotTime} has been successfully cancelled.\n\n- Smart Healthcare Assistant`,
+        };
 
-        res.json({ success: true, message: 'Appointment Cancelled' })
+        await transporter.sendMail(mailOptions);
+
+        res.json({ success: true, message: 'Appointment Cancelled & Email Sent' });
 
     } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
-}
+};
+
 
 // Gateway Initialize
 const razorpayInstance = new razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
     key_secret: process.env.RAZORPAY_KEY_SECRET,
 })
+
 
 
 
@@ -334,7 +363,6 @@ const paymentRazorpay = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
-
 
 // API to verify payment of razorpay
 const verifyRazorpay = async (req, res) => {

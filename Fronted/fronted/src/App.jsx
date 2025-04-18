@@ -13,6 +13,8 @@ import Footer from './components/Footer'
 import { ToastContainer } from 'react-toastify'
 import ForgotPassword from './pages/ForgetPassword'
 import ResetPassword from './pages/ResetPassword'
+import ImageAnalyzer from './pages/ImageAnalyzer'
+
 
 const App = () => {
   return (
@@ -30,7 +32,9 @@ const App = () => {
         <Route path='/my-appointments' element={<MyAppointments />} />
         <Route path='/appointment/:docId' element={<Appointment />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/reset-password/:token' element={<ResetPassword />} />     
+        <Route path='/reset-password/:token' element={<ResetPassword />} />
+        <Route path="/analyze-image" element={<ImageAnalyzer />} />
+     
          </Routes>
       <Footer />
     </div>
