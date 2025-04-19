@@ -23,7 +23,11 @@ const PaymentHistory = () => {
 
       const data = response.data;
       if (data.success) {
-        setPaymentHistory(data.paymentHistory);
+        // Sort payment history by date (newest first)
+        const sortedHistory = data.paymentHistory.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+        setPaymentHistory(sortedHistory);
       } else {
         setErr(data.message);
       }
@@ -50,7 +54,9 @@ const PaymentHistory = () => {
       ) : err ? (
         <div className="text-center text-red-600 text-lg">{err}</div>
       ) : paymentHistory.length === 0 ? (
-        <div className="text-center text-gray-500 text-lg">No payment records found.</div>
+        <div className="text-center text-gray-500 text-lg">
+          No payment records found.
+        </div>
       ) : (
         <div className="overflow-x-auto shadow-md rounded-lg">
           <table className="min-w-full text-sm text-gray-700 bg-white border border-gray-300">
@@ -76,7 +82,9 @@ const PaymentHistory = () => {
                   >
                     <td className="py-2 px-4 border">{formattedDate}</td>
                     <td className="py-2 px-4 border">{formattedTime}</td>
-                    <td className="py-2 px-4 border">{item.docData?.name || "Unknown"}</td>
+                    <td className="py-2 px-4 border">
+                      {item.docData?.name || "Unknown"}
+                    </td>
                     <td className="py-2 px-4 border">{item.slotTime}</td>
                     <td className="py-2 px-4 border font-semibold text-green-600">
                       ₹{item.amount}
