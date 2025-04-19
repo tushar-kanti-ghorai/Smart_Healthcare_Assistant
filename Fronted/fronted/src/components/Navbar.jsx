@@ -32,13 +32,11 @@ const Navbar = () => {
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
         </NavLink>
 
-        {/* Conditionally render "Symptom Checker" link if the user is logged in */}
-       
-          <NavLink to='/analyze-image'>
-            <li className='py-1'>MEDICAL CHATBOT</li>
-            <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-          </NavLink>
-        
+        <NavLink to='/analyze-image'>
+          <li className='py-1'>MEDICAL CHATBOT</li>
+          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+        </NavLink>
+
         <NavLink to='/about'>
           <li className='py-1'>ABOUT</li>
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
@@ -48,8 +46,7 @@ const Navbar = () => {
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
         </NavLink>
 
-        
-
+        {/* Admin/Doctor Panel Link */}
         <a target="_blank" href="http://localhost:5174" className="border px-5 text-xs py-1.5 rounded-full">Admin/Doctor Panel</a>
       </ul>
 
@@ -64,6 +61,8 @@ const Navbar = () => {
               <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4'>
                 <p onClick={() => navigate('/my-profile')} className='hover:text-black cursor-pointer'>My profile</p>
                 <p onClick={() => navigate('/my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
+                {/* Add Payment History Link */}
+                <p onClick={() => navigate('/payments')} className='hover:text-black cursor-pointer'>Payment History</p>
                 <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
               </div>
             </div>
@@ -79,11 +78,13 @@ const Navbar = () => {
             <img onClick={() => setShowMenu(false)} src={assets.cross_icon} className='w-7' alt="" />
           </div>
           <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium'>
-            <NavLink onClick={() => setShowMenu(false)} to='/'><p className='px-4 py-2 rounded full inline-block'>HOME</p></NavLink>
-            <NavLink onClick={() => setShowMenu(false)} to='/doctors' ><p className='px-4 py-2 rounded full inline-block'>ALL DOCTORS</p></NavLink>
-            <NavLink onClick={() => setShowMenu(false)} to='/symptom-checker'> <p className='px-4 py-2 rounded full inline-block'>SYMPTOM CHECKER</p></NavLink>
-            <NavLink onClick={() => setShowMenu(false)} to='/about' ><p className='px-4 py-2 rounded full inline-block'>ABOUT</p></NavLink>
-            <NavLink onClick={() => setShowMenu(false)} to='/contact' ><p className='px-4 py-2 rounded full inline-block'>CONTACT</p></NavLink>
+            <NavLink onClick={() => setShowMenu(false)} to='/'><p className='px-4 py-2 rounded-full inline-block'>HOME</p></NavLink>
+            <NavLink onClick={() => setShowMenu(false)} to='/doctors' ><p className='px-4 py-2 rounded-full inline-block'>ALL DOCTORS</p></NavLink>
+            <NavLink onClick={() => setShowMenu(false)} to='/analyze-image'> <p className='px-4 py-2 rounded-full inline-block'>MEDICAL CHATBOT</p></NavLink>
+            <NavLink onClick={() => setShowMenu(false)} to='/about' ><p className='px-4 py-2 rounded-full inline-block'>ABOUT</p></NavLink>
+            <NavLink onClick={() => setShowMenu(false)} to='/contact' ><p className='px-4 py-2 rounded-full inline-block'>CONTACT</p></NavLink>
+            {/* Add Payment History Link */}
+            <NavLink onClick={() => setShowMenu(false)} to='/payments'><p className='px-4 py-2 rounded-full inline-block'>Payment History</p></NavLink>
           </ul>
         </div>
       </div>

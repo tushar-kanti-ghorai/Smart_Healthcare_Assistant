@@ -14,6 +14,8 @@ import { ToastContainer } from 'react-toastify'
 import ForgotPassword from './pages/ForgetPassword'
 import ResetPassword from './pages/ResetPassword'
 import ImageAnalyzer from './pages/ImageAnalyzer'
+import PaymentPage from "./pages/paymentPage";
+
 
 
 const App = () => {
@@ -34,6 +36,8 @@ const App = () => {
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password/:token' element={<ResetPassword />} />
         <Route path="/analyze-image" element={<ImageAnalyzer />} />
+        <Route path="/payments" element={<PaymentPage />} />
+
      
          </Routes>
       <Footer />

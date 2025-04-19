@@ -384,7 +384,29 @@ const verifyRazorpay = async (req, res) => {
 }
 
 
+// API to get payment history of a user
+const getPaymentHistory = async (req, res) => {
+    try {
+        const { userId } = req.body;
 
+        // Fetch all appointments where the user is the one who booked and the payment is successful
+        const paymentHistory = await appointmentModel.find({ 
+            userId,
+            payment: true 
+        });
+
+        if (paymentHistory.length === 0) {
+            return res.json({ success: false, message: 'No payment history found' });
+        }
+
+        // Send the payment history as a response
+        res.json({ success: true, paymentHistory });
+
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
 
 export {
     registerUser,
@@ -397,4 +419,5 @@ export {
     paymentRazorpay,
     verifyRazorpay,
     forgotPassword,
-resetPassword}
+resetPassword,
+getPaymentHistory}
