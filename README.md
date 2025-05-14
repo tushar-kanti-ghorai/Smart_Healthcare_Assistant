@@ -14,9 +14,9 @@ An AI-powered full-stack healthcare platform built with React, Node.js, and Pyth
 
 ☁️ Cloudinary Integration – Upload and manage profile pictures and medical documents securely
 
-🔄 Password Recovery – Forgot/reset password via email OTP link
+🔄 Password Recovery – Forgot/reset password via email link
 
-📊 Admin Panel – Manage doctors, appointments, and user accounts
+📊 Admin Panel – Manage doctors,view all appointments, Add doctor
 
 👨‍⚕️ Doctor Panel – View appointments and manage availability
 
@@ -26,45 +26,4 @@ An AI-powered full-stack healthcare platform built with React, Node.js, and Pyth
 
 Frontend: ReactJS, Tailwind CSSBackend: Node.js (Express), FastAPI (Python)Database: MongoDBAI Integration: OpenAI Vision (GROQ), Python (Pillow, base64)Cloud Services: Cloudinary, Nodemailer, RazorpayTools: Git, GitHub, Postman, dotenv
 
-📁 Project Structure
-
-/client       => React Frontend  
-/server       => Node.js Backend (Express API)  
-/ai-service   => Python FastAPI Microservice (Image Analysis)  
-
-📸 Demo Screenshots (optional)
-
-You can add images here like:
-
-
-
-📌 How to Run Locally
-
-# Clone the repository
-git clone https://github.com/your-username/smart-healthcare-assistant.git
-
-# Install client dependencies
-cd client
-npm install
-npm start
-
-# Install server dependencies
-cd ../server
-npm install
-npm run dev
-
-# Run AI FastAPI service
-cd ../ai-service
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-
-🧑‍💼 Developed By
-
-Tushar Kanti Ghorai
-
-📧 tusharkantighorai643@gmail.com
-
-🔗 LinkedIn
-
-🐙 GitHub
 
