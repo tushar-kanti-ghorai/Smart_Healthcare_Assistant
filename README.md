@@ -22,8 +22,14 @@ An AI-powered full-stack healthcare platform built with React, Node.js, and Pyth
 
 🧑‍💻 Patient Panel – View profile, book appointments, and upload images for AI analysis
 
-🛠️ Technologies Used
-
-Frontend: ReactJS, Tailwind CSSBackend: Node.js (Express), FastAPI (Python)Database: MongoDBAI Integration: OpenAI Vision (GROQ), Python (Pillow, base64)Cloud Services: Cloudinary, Nodemailer, RazorpayTools: Git, GitHub, Postman, dotenv
+<h2>🛠️ Technologies Used</h2>
+<ul>
+  <li><strong>Frontend:</strong> ReactJS, Tailwind CSS</li>
+  <li><strong>Backend:</strong> Node.js (Express), FastAPI (Python)</li>
+  <li><strong>Database:</strong> MongoDB</li>
+  <li><strong>AI Integration:</strong> OpenAI Vision (GROQ), Python (Pillow, base64)</li>
+  <li><strong>Cloud Services:</strong> Cloudinary, Nodemailer, Razorpay</li>
+  <li><strong>Tools:</strong> Git, GitHub, Postman, dotenv</li>
+</ul>
 
 
